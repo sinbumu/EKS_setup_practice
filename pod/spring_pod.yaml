@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: spring-server-pod
+  namespace: xxyyzz-spring-worker
+spec:
+  containers:
+  - name: spring-server-container
+    image: 371711804553.dkr.ecr.ap-northeast-2.amazonaws.com/xxyyzz-test-spring-app-arm:1.0.35
+    ports:
+    - containerPort: 8080
