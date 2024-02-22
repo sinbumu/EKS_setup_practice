@@ -3,11 +3,15 @@ kind: Service
 metadata:
   name: spring-server-service
   namespace: xxyyzz-spring-worker
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:ap-northeast-2:371711804553:certificate/ac3d729a-b395-4b42-8307-9d4f78505c2b"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
 spec:
   selector:
-    app: spring-server-pod
+    app: spring-server
   ports:
     - protocol: TCP
-      port: 80
+      port: 443
       targetPort: 8080
   type: LoadBalancer
