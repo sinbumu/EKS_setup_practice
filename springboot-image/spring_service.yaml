@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-server-service
+  namespace: xxyyzz-spring-worker
+spec:
+  selector:
+    app: spring-server-pod
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer

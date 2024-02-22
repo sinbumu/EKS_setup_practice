@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-server-deployment
+  namespace: xxyyzz-spring-worker
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: spring-server
+  template:
+    metadata:
+      labels:
+        app: spring-server
+    spec:
+      containers:
+      - name: spring-server-container
+        image: 371711804553.dkr.ecr.ap-northeast-2.amazonaws.com/xxyyzz-test-spring-app-arm:1.0.43
+        ports:
+        - containerPort: 8080
+      nodeSelector:
+        nodegroup: springnodegroup
