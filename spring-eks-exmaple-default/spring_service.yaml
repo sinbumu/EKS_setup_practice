@@ -10,6 +10,7 @@ metadata:
 spec:
   selector:
     app: spring-server
+    version: blue 
   ports:
     - protocol: TCP
       port: 443
