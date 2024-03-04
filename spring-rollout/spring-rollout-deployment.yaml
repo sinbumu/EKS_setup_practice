@@ -1,45 +1,50 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: spring-server-deployment
-    namespace: xxyyzz-spring-worker
+  name: spring-server-deployment
+  namespace: xxyyzz-spring-worker
 spec:
-    replicas: 4
-    selector:
-        matchLabels:
-            app: spring-server
-    template:
-        metadata:
-            labels:
-                app: spring-server
-        spec:
-            containers:
-                - name: spring-server-container
-                  image: 371711804553.dkr.ecr.ap-northeast-2.amazonaws.com/xxyyzz-test-spring-app-arm:1.0.45
-                  resources:
-                      requests:
-                          memory: "500Mi"
-                          cpu: "250m"
-                      limits:
-                          memory: "2000Mi"
-                          cpu: "500m"
-                  ports:
-                      - containerPort: 8080
-                  readinessProbe:
-                      httpGet:
-                          path: /api/health
-                          port: 8080
-                      initialDelaySeconds: 10
-                      periodSeconds: 60
-                  livenessProbe:
-                      httpGet:
-                          path: /api/health
-                          port: 8080
-                      initialDelaySeconds: 53
-                      periodSeconds: 300
-                  lifecycle:
-                      preStop:
-                          exec:
-                              command: ["sleep", "20"]
-            nodeSelector:
-                nodegroup: springnodegroup
+  replicas: 4
+  selector:
+    matchLabels:
+      app: spring-server
+  template:
+    metadata:
+      labels:
+        app: spring-server
+    spec:
+      containers:
+      - name: spring-server-container
+        image: 371711804553.dkr.ecr.ap-northeast-2.amazonaws.com/xxyyzz-test-spring-app-arm:1.0.45
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "2000Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 60
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 8080
+          initialDelaySeconds: 53
+          periodSeconds: 300
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sleep", "10"]
+      nodeSelector:
+        nodegroup: springnodegroup
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 0%
