@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: spring-server-deployment-dev-0
+    namespace: xxyyzz-spring-worker-dev
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: spring-server-dev
+            version: '0'
+    template:
+        metadata:
+            labels:
+                app: spring-server-dev
+                version: '0'
+        spec:
+            containers:
+                - name: spring-server-container-dev
+                  image: 371711804553.dkr.ecr.ap-northeast-2.amazonaws.com/xxyyzz-test-spring-app-arm:1.0.28
+                  resources:
+                      requests:
+                          memory: "500Mi"
+                          cpu: "250m"
+                      limits:
+                          memory: "2500Mi"
+                          cpu: "1700m"
+                  ports:
+                      - containerPort: 8080
+                  readinessProbe:
+                      httpGet:
+                          path: /api/health
+                          port: 8080
+                      initialDelaySeconds: 15
+                      periodSeconds: 60
+                  livenessProbe:
+                      httpGet:
+                          path: /api/health
+                          port: 8080
+                      initialDelaySeconds: 60
+                      periodSeconds: 300
+                  lifecycle:
+                      preStop:
+                          exec:
+                              command: ["sleep", "20"]
+            nodeSelector:
+                nodegroup: xxyyzz-spring-api-dev

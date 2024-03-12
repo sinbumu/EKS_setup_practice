@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-server-service-dev
+  namespace: xxyyzz-spring-worker-dev
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "ssl_cert_string"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+spec:
+  selector:
+    app: spring-server-dev
+  ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 8080
+  type: LoadBalancer
