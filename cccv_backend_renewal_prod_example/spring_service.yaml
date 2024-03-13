@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-server-service-dev
-  namespace: xxyyzz-spring-worker-dev
+  name: spring-server-service-prod
+  namespace: xxyyzz-spring-worker-prod
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "ssl_cert_string"
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
 spec:
   selector:
-    app: spring-server-dev
+    app: spring-server-prod
   ports:
     - protocol: TCP
       port: 443

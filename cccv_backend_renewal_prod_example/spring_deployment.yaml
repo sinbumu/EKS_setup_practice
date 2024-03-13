@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: spring-server-deployment-dev-0
-    namespace: xxyyzz-spring-worker-dev
+    name: spring-server-deployment-prod-0
+    namespace: xxyyzz-spring-worker-prod
 spec:
     replicas: 1
     selector:
         matchLabels:
-            app: spring-server-dev
+            app: spring-server-prod
             version: '0'
     template:
         metadata:
             labels:
-                app: spring-server-dev
+                app: spring-server-prod
                 version: '0'
         spec:
             containers:
-                - name: spring-server-container-dev
+                - name: spring-server-container-prod
                   image: 371711804553.dkr.ecr.ap-northeast-2.amazonaws.com/xxyyzz-test-spring-app-arm:1.0.28
                   resources:
                       requests:
@@ -44,4 +44,4 @@ spec:
                           exec:
                               command: ["sleep", "20"]
             nodeSelector:
-                nodegroup: xxyyzz-spring-api-dev
+                nodegroup: xxyyzz-spring-api-prod

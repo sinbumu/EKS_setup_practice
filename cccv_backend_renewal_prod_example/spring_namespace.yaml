@@ -1,4 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: xxyyzz-spring-worker-dev
+  name: xxyyzz-spring-worker-prod
